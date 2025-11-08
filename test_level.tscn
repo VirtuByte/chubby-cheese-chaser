@@ -1,12 +1,13 @@
-[gd_scene load_steps=8 format=4 uid="uid://c03ukurmgoep8"]
+[gd_scene load_steps=9 format=4 uid="uid://c03ukurmgoep8"]
 
-[ext_resource type="Texture2D" uid="uid://bkyhksqn51mjo" path="res://assets/pics/tileset.png" id="3_1bvp3"]
-[ext_resource type="Script" uid="uid://dgmobsuwfxojq" path="res://chars/score_label.gd" id="3_h2yge"]
-[ext_resource type="PackedScene" uid="uid://ow1r3etd5dlm" path="res://chars/mouse.tscn" id="4_1bvp3"]
+[ext_resource type="Script" uid="uid://dqwe84rj8eb28" path="res://levels/level.gd" id="1_4ptq8"]
+[ext_resource type="Texture2D" uid="uid://bkyhksqn51mjo" path="res://assets/pics/tileset.png" id="1_f7g2b"]
+[ext_resource type="PackedScene" uid="uid://ow1r3etd5dlm" path="res://chars/mouse.tscn" id="2_4ptq8"]
+[ext_resource type="Script" uid="uid://dgmobsuwfxojq" path="res://chars/score_label.gd" id="3_sb12i"]
 
-[sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_lquwl"]
+[sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_sb12i"]
 resource_name = "blocks"
-texture = ExtResource("3_1bvp3")
+texture = ExtResource("1_f7g2b")
 texture_region_size = Vector2i(32, 32)
 0:0/0 = 0
 0:0/0/texture_origin = Vector2i(0, -8)
@@ -55,18 +56,19 @@ custom_data_layer_1/name = "eat_state"
 custom_data_layer_1/type = 2
 custom_data_layer_2/name = "molded"
 custom_data_layer_2/type = 1
-sources/3 = SubResource("TileSetAtlasSource_lquwl")
+sources/3 = SubResource("TileSetAtlasSource_sb12i")
 
-[sub_resource type="SystemFont" id="SystemFont_0xm2m"]
+[sub_resource type="SystemFont" id="SystemFont_gbhdq"]
 font_names = PackedStringArray("Noto Sans")
 subpixel_positioning = 0
 
 [sub_resource type="Theme" id="Theme_h2yge"]
-default_font = SubResource("SystemFont_0xm2m")
+default_font = SubResource("SystemFont_gbhdq")
 default_font_size = 22
 
 [node name="level" type="Node2D"]
 y_sort_enabled = true
+script = ExtResource("1_4ptq8")
 
 [node name="floor" type="TileMapLayer" parent="."]
 y_sort_enabled = true
@@ -85,7 +87,7 @@ tile_map_data = PackedByteArray("AAD1//b/AwADAAAAAAD0//X/AwAAAAAAAAD0//b/AwAAAAA
 tile_set = SubResource("TileSet_35kre")
 y_sort_origin = 1
 
-[node name="mouse" parent="." node_paths=PackedStringArray("tile_map_layer_walls") instance=ExtResource("4_1bvp3")]
+[node name="mouse" parent="." node_paths=PackedStringArray("tile_map_layer_walls") instance=ExtResource("2_4ptq8")]
 z_index = 1
 y_sort_enabled = true
 position = Vector2(0, -45)
@@ -105,6 +107,7 @@ offset_right = 92.0
 offset_bottom = -78.0
 scale = Vector2(0.01, 0.01)
 theme = SubResource("Theme_h2yge")
+metadata/_edit_use_anchors_ = true
 
 [node name="ScoreLabel" type="Label" parent="mouse/UserInterface"]
 layout_mode = 0
@@ -115,4 +118,5 @@ theme_override_colors/font_outline_color = Color(1, 1, 1, 1)
 theme_override_constants/outline_size = 200
 theme_override_font_sizes/font_size = 1000
 text = "Score: 0"
-script = ExtResource("3_h2yge")
+script = ExtResource("3_sb12i")
+metadata/_edit_use_anchors_ = true

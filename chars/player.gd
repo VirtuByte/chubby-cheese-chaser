@@ -28,11 +28,10 @@ func _ready() -> void:
 	tile_replace_timer.wait_time = 0.5
 
 func _process(_delta: float) -> void:	
-	if Input.is_action_pressed("move"):
-		move()
-	else:
+	if !Input.is_action_pressed("move"):
 		current_direction = DIRECTIONS.IDLE
-		move()
+
+	move()
 
 func _input(event: InputEvent) -> void:
 	if event is InputEventMouseMotion || event is InputEventMouseButton:
