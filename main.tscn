@@ -20,6 +20,7 @@ texture_region_size = Vector2i(32, 32)
 2:0/0/texture_origin = Vector2i(0, -8)
 2:0/0/physics_layer_0/polygon_0/points = PackedVector2Array(0, 0, -16, 8, -16, 16, 0, 24, 16, 16, 16, 8)
 2:0/0/custom_data_0 = true
+2:0/0/custom_data_2 = true
 3:0/next_alternative_id = 2
 3:0/0 = 0
 3:0/0/texture_origin = Vector2i(0, -8)
@@ -52,6 +53,8 @@ custom_data_layer_0/name = "eatable"
 custom_data_layer_0/type = 1
 custom_data_layer_1/name = "eat_state"
 custom_data_layer_1/type = 2
+custom_data_layer_2/name = "molded"
+custom_data_layer_2/type = 1
 sources/3 = SubResource("TileSetAtlasSource_lquwl")
 
 [sub_resource type="SystemFont" id="SystemFont_0xm2m"]
@@ -95,11 +98,11 @@ zoom = Vector2(4, 4)
 z_index = 100
 layout_mode = 3
 anchors_preset = 0
-offset_left = 82.0
-offset_top = -79.0
-offset_right = 82.0
-offset_bottom = -79.0
-scale = Vector2(0.03, 0.03)
+offset_left = 92.0
+offset_top = -78.0
+offset_right = 92.0
+offset_bottom = -78.0
+scale = Vector2(0.01, 0.01)
 theme = SubResource("Theme_h2yge")
 
 [node name="ScoreLabel" type="Label" parent="mouse/UserInterface"]
@@ -108,6 +111,6 @@ offset_right = 40.0
 offset_bottom = 23.0
 theme_override_colors/font_color = Color(0, 0, 0, 1)
 theme_override_colors/font_outline_color = Color(1, 1, 1, 1)
-theme_override_font_sizes/font_size = 500
+theme_override_font_sizes/font_size = 1000
 text = "Score: 0"
 script = ExtResource("3_h2yge")
