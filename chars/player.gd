@@ -97,6 +97,10 @@ func move() -> void:
 
 	move_and_slide()
 
+func add_score(amount: int) -> void:
+	score = max(0, score + amount)
+	emit_signal("score_changed", score)
+
 func eat() -> void:
 	var position_in_front = get_position_in_front()
 
@@ -105,17 +109,15 @@ func eat() -> void:
 			var eat_state: int = tile_map_layer_walls.get_cell_tile_data(position_in_front).get_custom_data("eat_state")
 			
 			if tile_map_layer_walls.get_cell_tile_data(position_in_front).get_custom_data("molded"):
-				score -= 30
-				emit_signal("score_changed", score)
+				add_score(-30)
+				
 
 			if eat_state <= 2:
 				tile_map_layer_walls.set_cell(position_in_front, tile_set_id, Vector2(eat_state + 4, 0))
 			else:
 				tile_map_layer_walls.set_cell(position_in_front, -1)
 				# tileMapWalls.set_cells_terrain_connect([Vector2(0, 0)], 0, -1, true) # ToDo - Update Autotiling
-				
-				score += 10
-				emit_signal("score_changed", score)
+				add_score(10)
 
 func get_position_in_front() -> Vector2:
 	var area = $digDirection/digBox
