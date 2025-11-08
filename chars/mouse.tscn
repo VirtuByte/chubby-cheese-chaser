@@ -1,0 +1,71 @@
+[gd_scene load_steps=10 format=3 uid="uid://ow1r3etd5dlm"]
+
+[ext_resource type="Texture2D" uid="uid://lxyuvbuwl6eo" path="res://assets/pics/mouse3.png" id="1_504ad"]
+[ext_resource type="Script" uid="uid://ys1ecy03vlwn" path="res://chars/player.gd" id="1_8121h"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_8121h"]
+atlas = ExtResource("1_504ad")
+region = Rect2(0, 0, 128, 128)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_rbbx8"]
+atlas = ExtResource("1_504ad")
+region = Rect2(128, 0, 128, 128)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_imava"]
+atlas = ExtResource("1_504ad")
+region = Rect2(256, 0, 128, 128)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_b26xi"]
+atlas = ExtResource("1_504ad")
+region = Rect2(384, 0, 128, 128)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_518uq"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_8121h")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_rbbx8")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_imava")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_b26xi")
+}],
+"loop": true,
+"name": &"walking",
+"speed": 5.0
+}]
+
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_8121h"]
+radius = 3.8647342
+height = 7.7294683
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_8121h"]
+
+[node name="player" type="CharacterBody2D"]
+script = ExtResource("1_8121h")
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
+y_sort_enabled = true
+sprite_frames = SubResource("SpriteFrames_518uq")
+animation = &"walking"
+frame = 1
+frame_progress = 0.74174404
+
+[node name="hitbox" type="CollisionShape2D" parent="."]
+position = Vector2(5, 29)
+rotation = 1.5707964
+scale = Vector2(3, 3.105)
+shape = SubResource("CapsuleShape2D_8121h")
+
+[node name="digDirection" type="Node2D" parent="."]
+position = Vector2(-90, 0)
+
+[node name="digBox" type="Area2D" parent="digDirection"]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="digDirection/digBox"]
+shape = SubResource("CircleShape2D_8121h")
+debug_color = Color(0.9743733, 0, 0.43068683, 0.41960785)
