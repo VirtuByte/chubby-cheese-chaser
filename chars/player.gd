@@ -20,12 +20,19 @@ signal score_changed(new_score: int)
 
 @onready var tile_replace_timer = $TileReplaceTimer
 
+#Eating Sounds
+@onready var eat_sound_mouse = $EatSoundMouse
+@onready var eat_sound_cooldown = $EatSoundCooldown
+var can_play_eat_sound = true
+
 var current_direction: DIRECTIONS
 var score = 0
 
 func _ready() -> void:
+	
+	eat_sound_cooldown.wait_time = 0.3
 	score = 0
-	tile_replace_timer.wait_time = 0.5
+	tile_replace_timer.wait_time = 0.10
 
 func _process(_delta: float) -> void:	
 	if !Input.is_action_pressed("move"):
@@ -99,6 +106,13 @@ func move() -> void:
 func add_score(amount: int) -> void:
 	score = max(0, score + amount)
 	emit_signal("score_changed", score)
+	
+
+func play_eating_sound():
+	if can_play_eat_sound:
+		eat_sound_mouse.play()
+		can_play_eat_sound = false
+		eat_sound_cooldown.start()
 
 func eat() -> void:
 	var position_in_front = get_position_in_front()
@@ -117,6 +131,7 @@ func eat() -> void:
 				tile_map_layer_walls.set_cell(position_in_front, -1)
 				# tileMapWalls.set_cells_terrain_connect([Vector2(0, 0)], 0, -1, true) # ToDo - Update Autotiling
 				add_score(10)
+			play_eating_sound()
 
 func get_position_in_front() -> Vector2:
 	var area = $digDirection/digBox
@@ -143,3 +158,7 @@ func _on_tile_replace_timer_timeout() -> void:
 
 func _on_score_label_score_signal() -> void:
 	pass # Replace with function body.
+
+
+func _on_eat_sound_cooldown_timeout() -> void:
+	can_play_eat_sound = true
