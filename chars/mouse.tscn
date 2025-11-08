@@ -69,3 +69,8 @@ scale = Vector2(0.2, 0.2)
 [node name="CollisionShape2D" type="CollisionShape2D" parent="digDirection/digBox"]
 shape = SubResource("CircleShape2D_8121h")
 debug_color = Color(0.9743733, 0, 0.43068683, 0.41960785)
+
+[node name="TileReplaceTimer" type="Timer" parent="."]
+
+[connection signal="body_entered" from="digDirection/digBox" to="." method="_on_dig_box_body_entered"]
+[connection signal="body_exited" from="digDirection/digBox" to="." method="_on_dig_box_body_exited"]
