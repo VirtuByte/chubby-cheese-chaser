@@ -1,7 +1,7 @@
 [gd_scene load_steps=8 format=4 uid="uid://c03ukurmgoep8"]
 
 [ext_resource type="Texture2D" uid="uid://bkyhksqn51mjo" path="res://assets/pics/tileset.png" id="3_1bvp3"]
-[ext_resource type="Script" uid="uid://dgmobsuwfxojq" path="res://score_label.gd" id="3_h2yge"]
+[ext_resource type="Script" uid="uid://dgmobsuwfxojq" path="res://chars/score_label.gd" id="3_h2yge"]
 [ext_resource type="PackedScene" uid="uid://ow1r3etd5dlm" path="res://chars/mouse.tscn" id="4_1bvp3"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_lquwl"]
@@ -59,6 +59,7 @@ sources/3 = SubResource("TileSetAtlasSource_lquwl")
 
 [sub_resource type="SystemFont" id="SystemFont_0xm2m"]
 font_names = PackedStringArray("Noto Sans")
+subpixel_positioning = 0
 
 [sub_resource type="Theme" id="Theme_h2yge"]
 default_font = SubResource("SystemFont_0xm2m")
