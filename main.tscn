@@ -49,14 +49,9 @@ y_sort_origin = 1
 [node name="mouse" parent="." node_paths=PackedStringArray("tile_map_layer_walls") instance=ExtResource("4_1bvp3")]
 z_index = 1
 y_sort_enabled = true
-position = Vector2(3, -45)
-scale = Vector2(0.2, 0.2)
+position = Vector2(0, -45)
 tile_map_layer_walls = NodePath("../walls")
 
 [node name="camera" type="Camera2D" parent="mouse"]
 z_index = 5
-y_sort_enabled = true
-position = Vector2(-14.999998, 224.99998)
-scale = Vector2(4.9999995, 4.9999995)
-offset = Vector2(0, -40)
 zoom = Vector2(4, 4)

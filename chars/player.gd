@@ -1,11 +1,5 @@
 extends CharacterBody2D
 
-@export var tile_map_layer_walls: TileMapLayer
-
-const SPEED = 80
-
-var current_direction
-
 enum DIRECTIONS {
 	UP,
 	UP_RIGHT,
@@ -18,85 +12,82 @@ enum DIRECTIONS {
 	IDLE,
 }
 
-var KEY_UP = false
-var KEY_DOWN = false
-var KEY_LEFT = false
-var KEY_RIGHT = false
+@export var tile_map_layer_walls: TileMapLayer
+@export var speed = 80
 
-func _process(_delta: float) -> void:
-	get_input()
-	set_direction()
-	move()
-	
-func get_input():
-	if Input.is_action_pressed("move_up"): KEY_UP = true
-	else: KEY_UP = false
-	
-	if Input.is_action_pressed("move_down"): KEY_DOWN = true
-	else: KEY_DOWN = false
-	
-	if Input.is_action_pressed("move_left"): KEY_LEFT = true
-	else: KEY_LEFT = false
-	
-	if Input.is_action_pressed("move_right"): KEY_RIGHT = true
-	else: KEY_RIGHT = false
-	
-	if Input.is_action_pressed("dig"):
+var current_direction: DIRECTIONS
+
+func _process(_delta: float) -> void:	
+	if Input.is_action_pressed("move"):
+		move()
+	else:
+		current_direction = DIRECTIONS.IDLE
+		move()
+
+func _input(event: InputEvent) -> void:
+	if event is InputEventMouseMotion || event is InputEventMouseButton:
+		var mouse_angle = rad_to_deg(get_angle_to(get_global_mouse_position()))
+		set_direction(mouse_angle)
+		
+	if event.is_action_pressed("dig"):
 		var position_in_front = get_position_in_front()
 
 		if tile_map_layer_walls.get_cell_source_id(position_in_front) != -1:
 			tile_map_layer_walls.set_cell(position_in_front, -1)
 			# tileMapWalls.set_cells_terrain_connect([Vector2(0, 0)], 0, -1, true) # ToDo - Update Autotiling
 
-func set_direction() -> void:
-	if KEY_UP:
-		if KEY_LEFT: current_direction = DIRECTIONS.UP_LEFT
-		elif KEY_RIGHT: current_direction = DIRECTIONS.UP_RIGHT
-		else: current_direction = DIRECTIONS.UP
-
-	elif KEY_DOWN:
-		if KEY_LEFT: current_direction = DIRECTIONS.DOWN_LEFT
-		elif KEY_RIGHT: current_direction = DIRECTIONS.DOWN_RIGHT
-		else: current_direction = DIRECTIONS.DOWN
-
-	elif KEY_LEFT: current_direction = DIRECTIONS.LEFT
-	elif KEY_RIGHT: current_direction = DIRECTIONS.RIGHT
-	else: current_direction = DIRECTIONS.IDLE
+func set_direction(mouse_angle: float) -> void:
+	if mouse_angle <= -157.5 || mouse_angle >= 157.5:
+		current_direction = DIRECTIONS.LEFT
+	elif mouse_angle <= -112.5 && mouse_angle > -157.5:
+		current_direction = DIRECTIONS.UP_LEFT
+	elif mouse_angle <= -67.5 && mouse_angle > -112.5:
+		current_direction = DIRECTIONS.UP
+	elif mouse_angle <= -22.5 && mouse_angle > -67.5:
+		current_direction = DIRECTIONS.UP_RIGHT
+	elif mouse_angle <= 22.5 && mouse_angle > -22.5:
+		current_direction = DIRECTIONS.RIGHT
+	elif mouse_angle <= 67.5 && mouse_angle > 22.5:
+		current_direction = DIRECTIONS.DOWN_RIGHT
+	elif mouse_angle <= 112.5 && mouse_angle > 67.5:
+		current_direction = DIRECTIONS.DOWN
+	elif mouse_angle <= 157.5 && mouse_angle > 112.5:
+		current_direction = DIRECTIONS.DOWN_LEFT
 
 func move() -> void:
 	match current_direction:
 		DIRECTIONS.UP:
-			self.velocity = Vector2(0, -SPEED)
+			self.velocity = Vector2(0, -speed)
 			$AnimatedSprite2D.play("walking")
-			$digDirection.position = Vector2(0, -90)
+			$digDirection.position = Vector2(0, -18)
 		DIRECTIONS.DOWN:
-			self.velocity = Vector2(0, SPEED)
+			self.velocity = Vector2(0, speed)
 			$AnimatedSprite2D.play("walking")
-			$digDirection.position = Vector2(0, 90)
+			$digDirection.position = Vector2(0, 12)
 		DIRECTIONS.LEFT:
-			self.velocity = Vector2(-SPEED, 0)
+			self.velocity = Vector2(-speed, 0)
 			$AnimatedSprite2D.play("walking")
-			$digDirection.position = Vector2(-90, 0)
+			$digDirection.position = Vector2(-22, -3)
 		DIRECTIONS.RIGHT:
-			self.velocity = Vector2(SPEED, 0)
+			self.velocity = Vector2(speed, 0)
 			$AnimatedSprite2D.play("walking")
-			$digDirection.position = Vector2(90, 0)
+			$digDirection.position = Vector2(22, -3)
 		DIRECTIONS.UP_LEFT:
-			self.velocity = cartesian_to_isometrics(Vector2(-SPEED, 0))
+			self.velocity = cartesian_to_isometrics(Vector2(-speed, 0))
 			$AnimatedSprite2D.play("walking")
-			$digDirection.position = Vector2(-60, -60)
+			$digDirection.position = Vector2(-12, -12)
 		DIRECTIONS.UP_RIGHT:
-			self.velocity = cartesian_to_isometrics(Vector2(0, -SPEED))
+			self.velocity = cartesian_to_isometrics(Vector2(0, -speed))
 			$AnimatedSprite2D.play("walking")
-			$digDirection.position = Vector2(60, -60)
+			$digDirection.position = Vector2(12, -12)
 		DIRECTIONS.DOWN_LEFT:
-			self.velocity = cartesian_to_isometrics(Vector2(0, SPEED))
+			self.velocity = cartesian_to_isometrics(Vector2(0, speed))
 			$AnimatedSprite2D.play("walking")
-			$digDirection.position = Vector2(-60, 60)
+			$digDirection.position = Vector2(-12, 5)
 		DIRECTIONS.DOWN_RIGHT:
-			self.velocity = cartesian_to_isometrics(Vector2(SPEED, 0))
+			self.velocity = cartesian_to_isometrics(Vector2(speed, 0))
 			$AnimatedSprite2D.play("walking")
-			$digDirection.position = Vector2(60, 60)
+			$digDirection.position = Vector2(12, 5)
 		DIRECTIONS.IDLE:
 			self.velocity = Vector2(0, 0)
 			$AnimatedSprite2D.stop()
