@@ -28,6 +28,3 @@ func reset_score() -> void:
 
 func trigger_game_over():
 	get_tree().change_scene_to_file("res://levels/game_over.tscn")
-
-func next_level():
-	pass
