@@ -1,9 +1,9 @@
 [gd_scene load_steps=9 format=4 uid="uid://0owk0as3087f"]
 
-[ext_resource type="Script" uid="uid://dqwe84rj8eb28" path="res://levels/level.gd" id="1_ca2kr"]
+[ext_resource type="Script" uid="uid://dqwe84rj8eb28" path="res://scripts/level.gd" id="1_ca2kr"]
 [ext_resource type="Texture2D" uid="uid://bkyhksqn51mjo" path="res://assets/pics/tileset.png" id="2_5q6gn"]
 [ext_resource type="PackedScene" uid="uid://ow1r3etd5dlm" path="res://chars/mouse.tscn" id="3_npvmy"]
-[ext_resource type="Script" uid="uid://dgmobsuwfxojq" path="res://chars/score_label.gd" id="4_puq2k"]
+[ext_resource type="Script" uid="uid://dgmobsuwfxojq" path="res://scripts/score_label.gd" id="4_puq2k"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_btoec"]
 resource_name = "blocks"

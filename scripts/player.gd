@@ -155,9 +155,5 @@ func _on_tile_replace_timer_timeout() -> void:
 			if area.is_in_group("tiles"):
 				eat()
 
-func _on_score_label_score_signal() -> void:
-	pass # Replace with function body.
-
-
 func _on_eat_sound_cooldown_timeout() -> void:
 	can_play_eat_sound = true
