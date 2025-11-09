@@ -130,7 +130,6 @@ func eat() -> void:
 				tile_map_layer_walls.set_cell(position_in_front, tile_set_id, Vector2(eat_state + 4, 0))
 			else:
 				tile_map_layer_walls.set_cell(position_in_front, -1)
-				# tileMapWalls.set_cells_terrain_connect([Vector2(0, 0)], 0, -1, true) # ToDo - Update Autotiling
 				GameManager.add_score(10)
 			play_eating_sound()
 
@@ -161,7 +160,7 @@ func enter_scene():
 	var callable = Callable(self, "return_to_normal")
 	
 	var tween = $"/root/level".get_tree().create_tween()
-	tween.tween_property(self, "global_scale", Vector2(1, 1), 3.0)
+	tween.tween_property(self, "global_scale", Vector2(1, 1), 2.0)
 	tween.tween_callback(callable)
 
 func change_scene():
@@ -187,14 +186,15 @@ func go_to_next_level():
 	var callable = Callable(self, "change_scene")
 	
 	var tween = $"/root/level".get_tree().create_tween()
-	tween.tween_property(self, "global_scale", Vector2(final_mouse_grow_factor, final_mouse_grow_factor), 3.0)
+	tween.tween_property(self, "global_scale", Vector2(final_mouse_grow_factor, final_mouse_grow_factor), 2.0).from_current()
 	tween.tween_callback(callable)
 
 func _on_dig_box_body_entered(body: Node2D) -> void:
 	if body.is_in_group("warp_item"):
+		$AnimatedSprite2D.stop()
 		go_to_next_level()
 
-	if body.is_in_group("tiles"):
+	elif body.is_in_group("tiles"):
 		tile_replace_timer.start()
 
 func _on_dig_box_body_exited(body: Node2D) -> void:
