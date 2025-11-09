@@ -44,6 +44,7 @@ animations = [{
 [node name="muscleMouse" type="RigidBody2D"]
 z_index = 1
 y_sort_enabled = true
+gravity_scale = 0.0
 lock_rotation = true
 script = ExtResource("1_lrj3j")
 player_path = NodePath("../mouse")

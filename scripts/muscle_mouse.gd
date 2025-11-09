@@ -17,7 +17,7 @@ func _physics_process(_delta: float) -> void:
 	var direction = to_player.normalized()
 	var distance = to_player.length();
 
-	# --- Raycast to check line of sight ---
+	# Raycast to check line of sight
 	var space = get_world_2d().direct_space_state
 	var query = PhysicsRayQueryParameters2D.create(global_position, player.global_position)
 	query.exclude = [self]  # don't hit yourself
@@ -25,15 +25,16 @@ func _physics_process(_delta: float) -> void:
 
 	var can_see_player = false
 	if result.size() == 0:
-		# nothing blocking
+		# Nothing blocking
 		can_see_player = true
 	elif result.collider == player:
-		# we hit the player first, so it's visible
+		# We hit the player first, so it's visible
 		can_see_player = true
-		
-	# --- Move only if visible ---
+
+	# Move only if visible
 	if can_see_player and distance < max_distance:
 		linear_velocity = direction * speed
 		$AnimatedSprite2D.play("walking")
 	else:
 		linear_velocity = Vector2.ZERO
+		$AnimatedSprite2D.stop()
