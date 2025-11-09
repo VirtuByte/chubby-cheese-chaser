@@ -127,7 +127,7 @@ offset_top = 150.0
 offset_right = 1211.5
 offset_bottom = 261.0
 grow_horizontal = 2
-text = "Your goal is to eat all the delicious cheese.
+text = "Your goal is to eat all the delicious cheese (but not the moldy ones, those give minus points)!
 But watch out for enemies that want all the chees for themselves and won't
 hesitate killing you!"
 label_settings = SubResource("LabelSettings_eus5j")
