@@ -19,7 +19,7 @@ enum DIRECTIONS {
 
 @onready var tile_replace_timer = $TileReplaceTimer
 
-#Eating Sounds
+# Eating Sounds
 @onready var eat_sound_mouse = $EatSoundMouse
 @onready var eat_sound_cooldown = $EatSoundCooldown
 var can_play_eat_sound = true
@@ -30,7 +30,7 @@ var controls_enabled = false
 
 const FILE_PREFIX = "res://levels/level_"
 const FILE_SUFFIX = ".tscn"
-const FINAL_LEVEL_NUMBER = 2
+const FINAL_LEVEL_NUMBER = 3
 
 func _ready() -> void:
 	eat_sound_cooldown.wait_time = 0.3

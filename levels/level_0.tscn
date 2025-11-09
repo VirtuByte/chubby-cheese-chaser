@@ -1,0 +1,92 @@
+[gd_scene load_steps=6 format=3 uid="uid://cvjlrkg2swbuy"]
+
+[ext_resource type="Script" uid="uid://ce03pxtnh8i87" path="res://scripts/welcome_screen.gd" id="1_eus5j"]
+
+[sub_resource type="LabelSettings" id="LabelSettings_2vvn8"]
+font_size = 30
+
+[sub_resource type="LabelSettings" id="LabelSettings_eus5j"]
+font_size = 25
+
+[sub_resource type="LabelSettings" id="LabelSettings_823pn"]
+font_size = 25
+
+[sub_resource type="LabelSettings" id="LabelSettings_iss0w"]
+font_size = 30
+
+[node name="ui" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_eus5j")
+
+[node name="Label" type="Label" parent="."]
+layout_mode = 1
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -258.5
+offset_top = 50.0
+offset_right = 258.5
+offset_bottom = 92.0
+grow_horizontal = 2
+text = "Welcome to Chubby Cheese Chaser!"
+label_settings = SubResource("LabelSettings_2vvn8")
+
+[node name="Label2" type="Label" parent="."]
+layout_mode = 1
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -655.5
+offset_top = 150.0
+offset_right = 655.5
+offset_bottom = 223.0
+grow_horizontal = 2
+text = "Your goal is to eat all the delicious cheese.
+But watch out for enemies that want all the chees for themselves."
+label_settings = SubResource("LabelSettings_eus5j")
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="Label3" type="Label" parent="."]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -386.5
+offset_top = -24.0
+offset_right = 386.5
+offset_bottom = 125.0
+grow_horizontal = 2
+grow_vertical = 2
+text = "Controls:
+
+Position of your mouse defines the direction of your movement.
+Left-click moves your character."
+label_settings = SubResource("LabelSettings_823pn")
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="Label4" type="Label" parent="."]
+layout_mode = 1
+anchors_preset = 7
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+offset_left = -230.5
+offset_top = -123.0
+offset_right = 230.50018
+offset_bottom = -81.0
+grow_horizontal = 2
+grow_vertical = 0
+text = "--- Left-click to start the game ---"
+label_settings = SubResource("LabelSettings_iss0w")
+horizontal_alignment = 1
+vertical_alignment = 1
