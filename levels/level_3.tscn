@@ -1,71 +1,145 @@
-[gd_scene load_steps=5 format=3 uid="uid://br726r7pmxjpr"]
+[gd_scene load_steps=12 format=4 uid="uid://c1oirsxwnwk7s"]
 
-[ext_resource type="Script" uid="uid://c2vpkd2pf5bnt" path="res://scripts/end_screen.gd" id="1_vkd0v"]
+[ext_resource type="Script" uid="uid://dqwe84rj8eb28" path="res://scripts/level.gd" id="1_8l0e1"]
+[ext_resource type="Script" uid="uid://dgmobsuwfxojq" path="res://scripts/score_label.gd" id="1_vkd0v"]
+[ext_resource type="Texture2D" uid="uid://c8qrt1te10gr2" path="res://assets/pics/powerups.png" id="2_lfnxh"]
+[ext_resource type="Texture2D" uid="uid://bkyhksqn51mjo" path="res://assets/pics/tileset.png" id="3_ofchu"]
+[ext_resource type="PackedScene" uid="uid://ow1r3etd5dlm" path="res://chars/mouse.tscn" id="4_jq78i"]
+[ext_resource type="PackedScene" uid="uid://e1l10llc65cf" path="res://chars/muscle_mouse.tscn" id="6_lsnkt"]
 
-[sub_resource type="LabelSettings" id="LabelSettings_drjm2"]
-font_size = 45
+[sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_gwceb"]
+texture = ExtResource("2_lfnxh")
+texture_region_size = Vector2i(32, 32)
+0:0/0 = 0
+0:0/0/texture_origin = Vector2i(0, -8)
+1:0/0 = 0
+1:0/0/texture_origin = Vector2i(0, -8)
+2:0/0 = 0
+2:0/0/texture_origin = Vector2i(0, -8)
+2:0/0/custom_data_3 = true
+3:0/0 = 0
+3:0/0/texture_origin = Vector2i(0, -8)
 
-[sub_resource type="LabelSettings" id="LabelSettings_vkd0v"]
-font_size = 30
+[sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_btoec"]
+resource_name = "blocks"
+texture = ExtResource("3_ofchu")
+texture_region_size = Vector2i(32, 32)
+0:0/0 = 0
+0:0/0/texture_origin = Vector2i(0, -8)
+0:0/0/physics_layer_0/polygon_0/points = PackedVector2Array(0, 24, 16, 16, 16, 8, 0, 0, -16, 8, -16, 16)
+0:0/0/custom_data_1 = -1
+1:0/0 = 0
+1:0/0/texture_origin = Vector2i(0, -8)
+1:0/0/physics_layer_0/polygon_0/points = PackedVector2Array(0, 24, 16, 16, 16, 8, 0, 0, -16, 8, -16, 16)
+1:0/0/custom_data_1 = -1
+2:0/0 = 0
+2:0/0/texture_origin = Vector2i(0, -8)
+2:0/0/physics_layer_0/polygon_0/points = PackedVector2Array(0, 0, -16, 8, -16, 16, 0, 24, 16, 16, 16, 8)
+2:0/0/custom_data_0 = true
+2:0/0/custom_data_2 = true
+3:0/next_alternative_id = 2
+3:0/0 = 0
+3:0/0/texture_origin = Vector2i(0, -8)
+3:0/0/physics_layer_0/polygon_0/points = PackedVector2Array(0, 24, -16, 16, -16, 8, 0, 0, 16, 8, 16, 16)
+3:0/0/custom_data_0 = true
+4:0/0 = 0
+4:0/0/texture_origin = Vector2i(0, -8)
+4:0/0/physics_layer_0/polygon_0/points = PackedVector2Array(0, 24, -16, 16, -16, 8, 0, 0, 16, 8, 16, 16)
+4:0/0/custom_data_0 = true
+4:0/0/custom_data_1 = 1
+5:0/0 = 0
+5:0/0/texture_origin = Vector2i(0, -8)
+5:0/0/physics_layer_0/polygon_0/points = PackedVector2Array(0, 24, 16, 16, 16, 8, 0, 0, -16, 8, -16, 16)
+5:0/0/custom_data_0 = true
+5:0/0/custom_data_1 = 2
+6:0/0 = 0
+6:0/0/texture_origin = Vector2i(0, -8)
+6:0/0/physics_layer_0/polygon_0/points = PackedVector2Array(0, 24, 16, 16, 16, 8, 0, 0, -16, 8, -16, 16)
+6:0/0/custom_data_0 = true
+6:0/0/custom_data_1 = 3
 
-[sub_resource type="LabelSettings" id="LabelSettings_hldmh"]
-font_size = 40
+[sub_resource type="TileSet" id="TileSet_gwceb"]
+tile_shape = 1
+tile_layout = 5
+tile_offset_axis = 1
+tile_size = Vector2i(32, 16)
+physics_layer_0/collision_layer = 1
+physics_layer_0/collision_mask = 2
+custom_data_layer_0/name = "eatable"
+custom_data_layer_0/type = 1
+custom_data_layer_1/name = "eat_state"
+custom_data_layer_1/type = 2
+custom_data_layer_2/name = "molded"
+custom_data_layer_2/type = 1
+custom_data_layer_3/name = "warp_cheese"
+custom_data_layer_3/type = 1
+sources/3 = SubResource("TileSetAtlasSource_btoec")
+sources/0 = SubResource("TileSetAtlasSource_gwceb")
 
-[node name="ui" type="Control"]
+[sub_resource type="SystemFont" id="SystemFont_0xm2m"]
+font_names = PackedStringArray("Noto Sans")
+subpixel_positioning = 0
+
+[sub_resource type="Theme" id="Theme_l53as"]
+default_font = SubResource("SystemFont_0xm2m")
+default_font_size = 22
+
+[node name="level" type="Node2D" node_paths=PackedStringArray("tile_map_layer_walls")]
+y_sort_enabled = true
+script = ExtResource("1_8l0e1")
+tile_map_layer_walls = NodePath("walls")
+warp_cheese_location = Vector2(16, -20)
+
+[node name="floor" type="TileMapLayer" parent="."]
+y_sort_enabled = true
+use_parent_material = true
+tile_map_data = PackedByteArray("AAD6//v/AwABAAAAAAD6//z/AwABAAAAAAD6//3/AwABAAAAAAD6//7/AwABAAAAAAD6////AwABAAAAAAD6/wAAAwABAAAAAAD6/wEAAwABAAAAAAD6/wIAAwABAAAAAAD6/wMAAwABAAAAAAD7//3/AwABAAAAAAD7//7/AwABAAAAAAD7////AwABAAAAAAD7/wAAAwABAAAAAAD7/wEAAwABAAAAAAD7/wIAAwABAAAAAAD7/wMAAwABAAAAAAD8//3/AwABAAAAAAD8//7/AwABAAAAAAD8////AwABAAAAAAD8/wAAAwABAAAAAAD8/wEAAwABAAAAAAD8/wIAAwABAAAAAAD8/wMAAwABAAAAAAD9//v/AwABAAAAAAD9//z/AwABAAAAAAD9//3/AwABAAAAAAD9//7/AwABAAAAAAD9////AwABAAAAAAD9/wAAAwABAAAAAAD9/wEAAwABAAAAAAD9/wIAAwABAAAAAAD9/wMAAwABAAAAAAD9/wQAAwABAAAAAAD9/wUAAwABAAAAAAD+//v/AwABAAAAAAD+//z/AwABAAAAAAD+//3/AwABAAAAAAD+//7/AwABAAAAAAD+////AwABAAAAAAD+/wAAAwABAAAAAAD+/wEAAwABAAAAAAD+/wIAAwABAAAAAAD+/wMAAwABAAAAAAD+/wQAAwABAAAAAAD+/wUAAwABAAAAAAD///v/AwABAAAAAAD///z/AwABAAAAAAD///3/AwABAAAAAAD///7/AwABAAAAAAD/////AwABAAAAAAD//wAAAwABAAAAAAD//wEAAwABAAAAAAD//wIAAwABAAAAAAD//wMAAwABAAAAAAD//wQAAwABAAAAAAD//wUAAwABAAAAAAAAAPv/AwABAAAAAAAAAPz/AwABAAAAAAAAAP3/AwABAAAAAAAAAP7/AwABAAAAAAAAAP//AwABAAAAAAAAAAAAAwABAAAAAAAAAAEAAwABAAAAAAAAAAIAAwABAAAAAAAAAAMAAwABAAAAAAAAAAQAAwABAAAAAAAAAAUAAwABAAAAAAABAPv/AwABAAAAAAABAPz/AwABAAAAAAABAP3/AwABAAAAAAABAP7/AwABAAAAAAABAP//AwABAAAAAAABAAAAAwABAAAAAAABAAEAAwABAAAAAAABAAIAAwABAAAAAAABAAMAAwABAAAAAAABAAQAAwABAAAAAAABAAUAAwABAAAAAAACAPz/AwABAAAAAAACAP3/AwABAAAAAAACAP7/AwABAAAAAAACAP//AwABAAAAAAACAAAAAwABAAAAAAACAAEAAwABAAAAAAACAAIAAwABAAAAAAADAPz/AwABAAAAAAADAP3/AwABAAAAAAADAP7/AwABAAAAAAADAP//AwABAAAAAAADAAAAAwABAAAAAAADAAEAAwABAAAAAAADAAIAAwABAAAAAAAEAPz/AwABAAAAAAAEAP3/AwABAAAAAAAEAP7/AwABAAAAAAAEAP//AwABAAAAAAAEAAAAAwABAAAAAAAEAAEAAwABAAAAAAAEAAIAAwABAAAAAAAFAAAAAwABAAAAAAAGAAAAAwABAAAAAAAHAAAAAwABAAAAAAAIAAAAAwABAAAAAAAFAP//AwABAAAAAAAGAP//AwABAAAAAAAHAP//AwABAAAAAAAIAP//AwABAAAAAAAFAP7/AwABAAAAAAAGAP7/AwABAAAAAAAHAP7/AwABAAAAAAAIAP7/AwABAAAAAAAFAAEAAwABAAAAAAAGAAEAAwABAAAAAAAHAAEAAwABAAAAAAAIAAEAAwABAAAAAAD9//b/AwABAAAAAAD9//f/AwABAAAAAAD9//j/AwABAAAAAAD9//n/AwABAAAAAAD9//r/AwABAAAAAAD+//b/AwABAAAAAAD+//f/AwABAAAAAAD+//j/AwABAAAAAAD+//n/AwABAAAAAAD+//r/AwABAAAAAAD///b/AwABAAAAAAD///f/AwABAAAAAAD///j/AwABAAAAAAD///n/AwABAAAAAAD///r/AwABAAAAAAD7//v/AwABAAAAAAD7//z/AwABAAAAAAD5//v/AwABAAAAAAD5//z/AwABAAAAAAD5//r/AwABAAAAAAD6//r/AwABAAAAAAD7//r/AwABAAAAAAAJAP7/AwABAAAAAAAJAP//AwABAAAAAAAJAAAAAwABAAAAAAAJAAEAAwABAAAAAAAKAP7/AwABAAAAAAAKAP//AwABAAAAAAAKAAAAAwABAAAAAAAKAAEAAwABAAAAAAALAP7/AwABAAAAAAALAP//AwABAAAAAAALAAAAAwABAAAAAAALAAEAAwABAAAAAAAMAP7/AwABAAAAAAAMAP//AwABAAAAAAAMAAAAAwABAAAAAAAMAAEAAwABAAAAAAAJAP3/AwABAAAAAAAJAAIAAwABAAAAAAAKAP3/AwABAAAAAAAKAAIAAwABAAAAAAALAP3/AwABAAAAAAALAAIAAwABAAAAAAAMAP3/AwABAAAAAAAMAAIAAwABAAAAAAANAP3/AwABAAAAAAANAP7/AwABAAAAAAANAP//AwABAAAAAAANAAAAAwABAAAAAAANAAEAAwABAAAAAAANAAIAAwABAAAAAAAOAP3/AwABAAAAAAAOAP7/AwABAAAAAAAOAP//AwABAAAAAAAOAAAAAwABAAAAAAAOAAEAAwABAAAAAAAOAAIAAwABAAAAAAAPAP3/AwABAAAAAAAPAP7/AwABAAAAAAAPAP//AwABAAAAAAAPAAAAAwABAAAAAAAPAAEAAwABAAAAAAAPAAIAAwABAAAAAAA=")
+tile_set = SubResource("TileSet_gwceb")
+collision_enabled = false
+
+[node name="walls" type="TileMapLayer" parent="." groups=["tiles"]]
+z_index = 1
+z_as_relative = false
+y_sort_enabled = true
+use_parent_material = true
+rotation = -0.001711971
+tile_map_data = PackedByteArray("AAD9/wQAAwAAAAAAAAD+/wQAAwAAAAAAAAD//wQAAwAAAAAAAAAAAAQAAwAAAAAAAAD8/wQAAwAAAAAAAAD5/wIAAwAAAAAAAAD6/wIAAwAAAAAAAAD7/wIAAwAAAAAAAAD8/wIAAwAAAAAAAAD8/wMAAwAAAAAAAAAAAAMAAwAAAAAAAAAAAAIAAwAAAAAAAAABAAEAAwAAAAAAAAACAAEAAwAAAAAAAAADAAEAAwAAAAAAAAAEAAAAAwAAAAAAAAAFAAAAAwAAAAAAAAAGAAAAAwAAAAAAAAAHAAAAAwAAAAAAAAAHAP3/AwAAAAAAAAAGAP3/AwAAAAAAAAAFAP3/AwAAAAAAAAAEAP3/AwAAAAAAAAADAPv/AwAAAAAAAAADAPz/AwAAAAAAAAABAPv/AwAAAAAAAAACAPv/AwAAAAAAAAAAAPv/AwAAAAAAAAD+//r/AwAAAAAAAAD+//n/AwAAAAAAAAD+//j/AwAAAAAAAAD+//f/AwAAAAAAAAD+//b/AwAAAAAAAAD///r/AwAAAAAAAAD+//X/AwAAAAAAAAD8//X/AwAAAAAAAAD9//X/AwAAAAAAAAD4//n/AwAAAAAAAAD5//n/AwAAAAAAAAD6//n/AwAAAAAAAAD4//r/AwAAAAAAAAD4//v/AwAAAAAAAAD5//z/AwAAAAAAAAD5//3/AwAAAAAAAAD5//7/AwAAAAAAAAD5////AwAAAAAAAAD5/wAAAwAAAAAAAAD7//z/AwAAAAAAAAD7//v/AwAAAAAAAAD7//r/AwAAAAAAAAD7//n/AwAAAAAAAAD7//j/AwAAAAAAAAD7//f/AwAAAAAAAAD7//b/AwAAAAAAAAD7//X/AwAAAAAAAAD5/wEAAwAAAAAAAAAHAP7/AwADAAAAAAAHAP//AwADAAAAAAAIAAEAAwAAAAAAAAAJAAEAAwAAAAAAAAAKAAEAAwAAAAAAAAALAAEAAwAAAAAAAAAMAAEAAwAAAAAAAAANAAEAAwAAAAAAAAAOAAEAAwAAAAAAAAAIAPz/AwAAAAAAAAAJAPz/AwAAAAAAAAAKAPz/AwAAAAAAAAALAPz/AwAAAAAAAAAMAPz/AwAAAAAAAAANAPz/AwAAAAAAAAAOAPz/AwAAAAAAAAAOAP3/AwAAAAAAAAAOAP7/AwAAAAAAAAAOAP//AwAAAAAAAAAOAAAAAwAAAAAAAAD8//b/AwADAAAAAAD9//b/AwADAAAAAAD9//f/AwADAAAAAAD9//j/AwADAAAAAAD9//n/AwADAAAAAAD5//r/AwAFAAAAAAD5//v/AwAFAAAAAAD6//r/AwAFAAAAAAD6//v/AwAFAAAAAAANAP3/AwAGAAAAAAAJAP3/AwAGAAAAAAANAAAAAwAFAAAAAAAMAAAAAwAFAAAAAAALAAAAAwAFAAAAAAALAP3/AwAEAAAAAAAIAAAAAwAEAAAAAAAIAP3/AwAEAAAAAAAKAAAAAwAEAAAAAAAJAAAAAwADAAAAAAAKAP3/AwADAAAAAAANAP//AwADAAAAAAANAP7/AwADAAAAAAAMAP3/AwADAAAAAAALAP7/AwADAAAAAAD9/wMAAwADAAAAAAD+/wMAAwADAAAAAAD//wMAAwADAAAAAAD6//7/AwADAAAAAAD6////AwADAAAAAAD6/wAAAwADAAAAAAD6/wEAAwADAAAAAAACAPz/AwADAAAAAAABAPz/AwADAAAAAAABAAAAAwADAAAAAAACAAAAAwADAAAAAAADAAAAAwADAAAAAAAAAAEAAwADAAAAAAA=")
+tile_set = SubResource("TileSet_gwceb")
+y_sort_origin = 1
+
+[node name="mouse" parent="." node_paths=PackedStringArray("tile_map_layer_walls") instance=ExtResource("4_jq78i")]
+z_index = 1
+y_sort_enabled = true
+position = Vector2(16, -22)
+tile_map_layer_walls = NodePath("../walls")
+
+[node name="camera" type="Camera2D" parent="mouse"]
+z_index = 5
+zoom = Vector2(4, 4)
+
+[node name="UserInterface" type="Control" parent="mouse"]
+z_index = 100
 layout_mode = 3
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
-grow_horizontal = 2
-grow_vertical = 2
+anchors_preset = 0
+offset_left = 92.0
+offset_top = -78.0
+offset_right = 92.0
+offset_bottom = -78.0
+scale = Vector2(0.01, 0.01)
+theme = SubResource("Theme_l53as")
+metadata/_edit_use_anchors_ = true
+
+[node name="ScoreLabel" type="Label" parent="mouse/UserInterface"]
+layout_mode = 0
+offset_right = 40.0
+offset_bottom = 23.0
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+theme_override_colors/font_outline_color = Color(1, 1, 1, 1)
+theme_override_constants/outline_size = 200
+theme_override_font_sizes/font_size = 1000
+text = "Score: 0"
 script = ExtResource("1_vkd0v")
+metadata/_edit_use_anchors_ = true
 
-[node name="Label" type="Label" parent="."]
-layout_mode = 1
-anchors_preset = 8
-anchor_left = 0.5
-anchor_top = 0.5
-anchor_right = 0.5
-anchor_bottom = 0.5
-offset_left = -244.0
-offset_top = -224.0
-offset_right = 244.0
-offset_bottom = -175.0
-grow_horizontal = 2
-grow_vertical = 2
-text = "Thanks for playing the game!"
-label_settings = SubResource("LabelSettings_drjm2")
-horizontal_alignment = 1
-vertical_alignment = 1
-
-[node name="Label2" type="Label" parent="."]
-layout_mode = 1
-anchors_preset = 7
-anchor_left = 0.5
-anchor_top = 1.0
-anchor_right = 0.5
-anchor_bottom = 1.0
-offset_left = -246.0
-offset_top = -123.0
-offset_right = 246.0
-offset_bottom = -81.0
-grow_horizontal = 2
-grow_vertical = 0
-text = "--- Left-click to restart the game ---"
-label_settings = SubResource("LabelSettings_vkd0v")
-
-[node name="score" type="Label" parent="."]
-layout_mode = 1
-anchors_preset = 8
-anchor_left = 0.5
-anchor_top = 0.5
-anchor_right = 0.5
-anchor_bottom = 0.5
-offset_left = -78.0
-offset_top = -17.5
-offset_right = 78.0
-offset_bottom = 17.5
-grow_horizontal = 2
-grow_vertical = 2
-text = "Your score: 0"
-label_settings = SubResource("LabelSettings_hldmh")
+[node name="muscleMouse" parent="." instance=ExtResource("6_lsnkt")]
+position = Vector2(190, 69)

@@ -179,7 +179,7 @@ func go_to_next_level():
 	var current_scene_file = get_tree().current_scene.scene_file_path
 	next_level_number = current_scene_file.to_int() + 1
 
-	if next_level_number > FINAL_LEVEL_NUMBER: return
+	if next_level_number > FINAL_LEVEL_NUMBER: next_level_number = 100
 	
 	self.z_index = 99
 	self.collision_layer = 0

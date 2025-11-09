@@ -40,5 +40,5 @@ func _physics_process(_delta: float) -> void:
 		$AnimatedSprite2D.stop()
 
 func _on_area_2d_body_entered(body: Node2D) -> void:
-	if GameManager.get_game_started():
+	if GameManager.get_game_started() && body.is_in_group("player"):
 		GameManager.trigger_game_over()
