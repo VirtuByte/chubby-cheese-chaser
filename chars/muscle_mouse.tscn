@@ -1,0 +1,58 @@
+[gd_scene load_steps=9 format=3 uid="uid://e1l10llc65cf"]
+
+[ext_resource type="Script" uid="uid://cq41ai4jtnlcw" path="res://scripts/muscle_mouse.gd" id="1_lrj3j"]
+[ext_resource type="Texture2D" uid="uid://c4vit5b03pkcr" path="res://assets/pics/rat.png" id="2_882wl"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_l53as"]
+atlas = ExtResource("2_882wl")
+region = Rect2(0, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_3sk1a"]
+atlas = ExtResource("2_882wl")
+region = Rect2(32, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_08mmt"]
+atlas = ExtResource("2_882wl")
+region = Rect2(64, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_5ot28"]
+atlas = ExtResource("2_882wl")
+region = Rect2(96, 0, 32, 32)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_aerfg"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_l53as")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_3sk1a")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_08mmt")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_5ot28")
+}],
+"loop": true,
+"name": &"walking",
+"speed": 5.0
+}]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_nmsli"]
+
+[node name="muscleMouse" type="RigidBody2D"]
+z_index = 1
+y_sort_enabled = true
+lock_rotation = true
+script = ExtResource("1_lrj3j")
+player_path = NodePath("../mouse")
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
+sprite_frames = SubResource("SpriteFrames_aerfg")
+animation = &"walking"
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2(0, 13)
+scale = Vector2(1, 0.5)
+shape = SubResource("CircleShape2D_nmsli")
