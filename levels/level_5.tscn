@@ -142,7 +142,7 @@ script = ExtResource("5_8vr3t")
 metadata/_edit_use_anchors_ = true
 
 [node name="muscleMouse" parent="." instance=ExtResource("6_a58qw")]
-position = Vector2(-109, -112)
+position = Vector2(-94, -102)
 
 [node name="muscleMouse2" parent="." instance=ExtResource("6_a58qw")]
 position = Vector2(99, 10)
