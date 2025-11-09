@@ -1,7 +1,8 @@
-[gd_scene load_steps=10 format=3 uid="uid://ow1r3etd5dlm"]
+[gd_scene load_steps=11 format=3 uid="uid://ow1r3etd5dlm"]
 
 [ext_resource type="Texture2D" uid="uid://lxyuvbuwl6eo" path="res://assets/pics/mouse3.png" id="1_504ad"]
 [ext_resource type="Script" uid="uid://ys1ecy03vlwn" path="res://chars/player.gd" id="1_8121h"]
+[ext_resource type="AudioStream" uid="uid://bft3lkyepmrv3" path="res://assets/sounds/mouse_eating.wav" id="3_rbbx8"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_8121h"]
 atlas = ExtResource("1_504ad")
@@ -72,6 +73,12 @@ debug_color = Color(0.9743733, 0, 0.43068683, 0.41960785)
 
 [node name="TileReplaceTimer" type="Timer" parent="."]
 
+[node name="EatSoundMouse" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("3_rbbx8")
+
+[node name="EatSoundCooldown" type="Timer" parent="."]
+
 [connection signal="body_entered" from="digDirection/digBox" to="." method="_on_dig_box_body_entered"]
 [connection signal="body_exited" from="digDirection/digBox" to="." method="_on_dig_box_body_exited"]
 [connection signal="timeout" from="TileReplaceTimer" to="." method="_on_tile_replace_timer_timeout"]
+[connection signal="timeout" from="EatSoundCooldown" to="." method="_on_eat_sound_cooldown_timeout"]

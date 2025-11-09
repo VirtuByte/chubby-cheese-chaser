@@ -29,12 +29,11 @@ var current_direction: DIRECTIONS
 var score = 0
 
 func _ready() -> void:
-	
 	eat_sound_cooldown.wait_time = 0.3
 	score = 0
 	tile_replace_timer.wait_time = 0.10
 
-func _process(_delta: float) -> void:	
+func _process(_delta: float) -> void:
 	if !Input.is_action_pressed("move"):
 		current_direction = DIRECTIONS.IDLE
 

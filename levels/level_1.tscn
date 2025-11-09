@@ -1,11 +1,10 @@
-[gd_scene load_steps=18 format=4 uid="uid://c2h2r16hyho47"]
+[gd_scene load_steps=17 format=4 uid="uid://c2h2r16hyho47"]
 
 [ext_resource type="Texture2D" uid="uid://bkyhksqn51mjo" path="res://assets/pics/tileset.png" id="1_bt44k"]
 [ext_resource type="Script" uid="uid://dqwe84rj8eb28" path="res://levels/level.gd" id="1_kx6l7"]
 [ext_resource type="PackedScene" uid="uid://ow1r3etd5dlm" path="res://chars/mouse.tscn" id="2_kx6l7"]
 [ext_resource type="Script" uid="uid://dgmobsuwfxojq" path="res://chars/score_label.gd" id="3_n46q3"]
 [ext_resource type="Script" uid="uid://cq41ai4jtnlcw" path="res://levels/muscle_mouse.gd" id="5_btoec"]
-[ext_resource type="AudioStream" uid="uid://bft3lkyepmrv3" path="res://assets/sounds/mouse_eating.wav" id="5_gwceb"]
 [ext_resource type="Texture2D" uid="uid://c4vit5b03pkcr" path="res://assets/pics/rat.png" id="6_gwceb"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_btoec"]
@@ -162,11 +161,6 @@ text = "Score: 0"
 script = ExtResource("3_n46q3")
 metadata/_edit_use_anchors_ = true
 
-[node name="EatSoundMouse" type="AudioStreamPlayer" parent="mouse"]
-stream = ExtResource("5_gwceb")
-
-[node name="EatSoundCooldown" type="Timer" parent="mouse"]
-
 [node name="muscleMouse" type="RigidBody2D" parent="."]
 z_index = 1
 y_sort_enabled = true
@@ -183,5 +177,3 @@ animation = &"walking"
 position = Vector2(0, 13)
 scale = Vector2(1, 0.5)
 shape = SubResource("CircleShape2D_nmsli")
-
-[connection signal="timeout" from="mouse/EatSoundCooldown" to="mouse" method="_on_eat_sound_cooldown_timeout"]
