@@ -1,15 +1,24 @@
 extends Node2D
 
-const FILE_PREFIX = "res://levels/level_"
-const FILE_SUFFIX = ".tscn"
-const FINAL_LEVEL_NUMBER = 2
+@export var tile_map_layer_walls: TileMapLayer
+@export var warp_cheese_location: Vector2 = Vector2(0, 0)
 
-func _input(event: InputEvent) -> void:
-	if event.is_action_pressed("next_level"):
-		var current_scene_file = get_tree().current_scene.scene_file_path
-		var next_level_number = current_scene_file.to_int() + 1
-		
-		if next_level_number > FINAL_LEVEL_NUMBER: return
+var warp_cheese = preload("res://objects/warp_cheese.tscn")
 
-		var next_level_path = FILE_PREFIX + str(next_level_number) + FILE_SUFFIX
-		get_tree().change_scene_to_file(next_level_path)
+func _process(_delta: float) -> void:
+	var blocks_to_eat = 0
+	for cell in tile_map_layer_walls.get_used_cells():		
+		var current_tile_data = tile_map_layer_walls.get_cell_tile_data(cell)
+
+		if current_tile_data == null || !current_tile_data.get_custom_data("eatable") || current_tile_data.get_custom_data("molded"): continue
+		blocks_to_eat += 1
+
+	if blocks_to_eat == 0:
+		spawn_warp_cheese()
+
+func spawn_warp_cheese():
+	var new_warp_cheese = warp_cheese.instantiate()
+	add_child(new_warp_cheese)
+
+	new_warp_cheese.z_index = 1
+	new_warp_cheese.position = warp_cheese_location

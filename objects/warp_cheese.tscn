@@ -1,0 +1,27 @@
+[gd_scene load_steps=4 format=3 uid="uid://fjtnjvky8hyq"]
+
+[ext_resource type="Texture2D" uid="uid://vq7231oc0863" path="res://assets/pics/cheese-powerup2.png" id="1_7od4c"]
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_7od4c"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("1_7od4c")
+}],
+"loop": true,
+"name": &"warp_cheese",
+"speed": 5.0
+}]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_olm2a"]
+
+[node name="CharacterBody2D" type="CharacterBody2D" groups=["warp_item"]]
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
+sprite_frames = SubResource("SpriteFrames_7od4c")
+animation = &"warp_cheese"
+frame_progress = 0.020663453
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource("CircleShape2D_olm2a")
+debug_color = Color(0.37050584, 0.4977966, 0.94375104, 0.41960785)

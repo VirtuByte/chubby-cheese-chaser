@@ -17,6 +17,7 @@ signal score_changed(new_score: int)
 @export var tile_map_layer_walls: TileMapLayer
 @export var speed = 80
 @export var tile_set_id = 3
+@export var final_mouse_grow_factor = 50
 
 @onready var tile_replace_timer = $TileReplaceTimer
 
@@ -27,11 +28,19 @@ var can_play_eat_sound = true
 
 var current_direction: DIRECTIONS
 var score = 0
+var next_level_number = -1
+var controls_enabled = false
+
+const FILE_PREFIX = "res://levels/level_"
+const FILE_SUFFIX = ".tscn"
+const FINAL_LEVEL_NUMBER = 2
 
 func _ready() -> void:
 	eat_sound_cooldown.wait_time = 0.3
 	score = 0
 	tile_replace_timer.wait_time = 0.10
+	
+	enter_scene()
 
 func _process(_delta: float) -> void:
 	if !Input.is_action_pressed("move"):
@@ -63,6 +72,8 @@ func set_direction(mouse_angle: float) -> void:
 		current_direction = DIRECTIONS.DOWN_LEFT
 
 func move() -> void:
+	if !controls_enabled: return
+
 	match current_direction:
 		DIRECTIONS.UP:
 			self.velocity = Vector2(0, -speed)
@@ -105,7 +116,6 @@ func move() -> void:
 func add_score(amount: int) -> void:
 	score = max(0, score + amount)
 	emit_signal("score_changed", score)
-	
 
 func play_eating_sound():
 	if can_play_eat_sound:
@@ -114,6 +124,8 @@ func play_eating_sound():
 		eat_sound_cooldown.start()
 
 func eat() -> void:
+	if !controls_enabled: return
+
 	var position_in_front = get_position_in_front()
 
 	if tile_map_layer_walls.get_cell_source_id(position_in_front) != -1:
@@ -122,7 +134,6 @@ func eat() -> void:
 			
 			if tile_map_layer_walls.get_cell_tile_data(position_in_front).get_custom_data("molded"):
 				add_score(-30)
-				
 
 			if eat_state <= 2:
 				tile_map_layer_walls.set_cell(position_in_front, tile_set_id, Vector2(eat_state + 4, 0))
@@ -141,7 +152,55 @@ func get_position_in_front() -> Vector2:
 func cartesian_to_isometrics(cartesian: Vector2) -> Vector2:
 	return Vector2(cartesian.x - cartesian.y, (cartesian.x + cartesian.y) / 2)
 
+func return_to_normal():
+	self.z_index = 1
+	self.collision_layer = 1
+	self.collision_mask = 1
+	
+	controls_enabled = true
+
+func enter_scene():
+	self.scale = Vector2(final_mouse_grow_factor, final_mouse_grow_factor)
+	
+	self.z_index = 99
+	self.collision_layer = 0
+	self.collision_mask = 0
+	
+	var callable = Callable(self, "return_to_normal")
+	
+	var tween = $"/root/level".get_tree().create_tween()
+	tween.tween_property(self, "global_scale", Vector2(1, 1), 3.0)
+	tween.tween_callback(callable)
+
+func change_scene():
+	if !is_inside_tree():
+		return
+
+	var next_level_path = FILE_PREFIX + str(next_level_number) + FILE_SUFFIX
+	get_tree().change_scene_to_file(next_level_path)
+
+func go_to_next_level():
+	controls_enabled = false
+
+	var current_scene_file = get_tree().current_scene.scene_file_path
+	next_level_number = current_scene_file.to_int() + 1
+
+	if next_level_number > FINAL_LEVEL_NUMBER: return
+	
+	self.z_index = 99
+	self.collision_layer = 0
+	self.collision_mask = 0
+	
+	var callable = Callable(self, "change_scene")
+	
+	var tween = $"/root/level".get_tree().create_tween()
+	tween.tween_property(self, "global_scale", Vector2(final_mouse_grow_factor, final_mouse_grow_factor), 3.0)
+	tween.tween_callback(callable)
+
 func _on_dig_box_body_entered(body: Node2D) -> void:
+	if body.is_in_group("warp_item"):
+		go_to_next_level()
+
 	if body.is_in_group("tiles"):
 		tile_replace_timer.start()
 
