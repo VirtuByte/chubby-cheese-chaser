@@ -150,6 +150,7 @@ func return_to_normal():
 	self.collision_mask = 1
 	
 	controls_enabled = true
+	GameManager.start_game()
 
 func enter_scene():
 	self.scale = Vector2(final_mouse_grow_factor, final_mouse_grow_factor)
@@ -173,6 +174,7 @@ func change_scene():
 
 func go_to_next_level():
 	controls_enabled = false
+	GameManager.stop_game()
 
 	var current_scene_file = get_tree().current_scene.scene_file_path
 	next_level_number = current_scene_file.to_int() + 1

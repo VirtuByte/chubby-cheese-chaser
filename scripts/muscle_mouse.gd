@@ -38,3 +38,7 @@ func _physics_process(_delta: float) -> void:
 	else:
 		linear_velocity = Vector2.ZERO
 		$AnimatedSprite2D.stop()
+
+func _on_area_2d_body_entered(body: Node2D) -> void:
+	if GameManager.get_game_started():
+		GameManager.trigger_game_over()

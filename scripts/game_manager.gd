@@ -2,7 +2,17 @@ extends Node
 
 signal score_changed(new_score: int)
 
+var game_started = false
 var score = 0
+
+func start_game():
+	game_started = true
+
+func stop_game():
+	game_started = false
+
+func get_game_started():
+	return game_started
 
 func add_score(value: int) -> void:
 	score += value
@@ -10,3 +20,6 @@ func add_score(value: int) -> void:
 
 func get_score() -> int:
 	return score
+
+func trigger_game_over():
+	get_tree().change_scene_to_file("res://levels/game_over.tscn")
