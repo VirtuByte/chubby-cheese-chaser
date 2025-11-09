@@ -30,7 +30,7 @@ var controls_enabled = false
 
 const FILE_PREFIX = "res://levels/level_"
 const FILE_SUFFIX = ".tscn"
-const FINAL_LEVEL_NUMBER = 3
+const FINAL_LEVEL_NUMBER = 4
 
 func _ready() -> void:
 	eat_sound_cooldown.wait_time = 0.3

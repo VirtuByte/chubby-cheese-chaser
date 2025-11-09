@@ -1,0 +1,148 @@
+[gd_scene load_steps=12 format=4 uid="uid://c44divegf6ry"]
+
+[ext_resource type="Script" uid="uid://dqwe84rj8eb28" path="res://scripts/level.gd" id="1_hokjj"]
+[ext_resource type="Texture2D" uid="uid://c8qrt1te10gr2" path="res://assets/pics/powerups.png" id="2_0fd8o"]
+[ext_resource type="Texture2D" uid="uid://bkyhksqn51mjo" path="res://assets/pics/tileset.png" id="3_dmnu2"]
+[ext_resource type="PackedScene" uid="uid://ow1r3etd5dlm" path="res://chars/mouse.tscn" id="4_sc6c1"]
+[ext_resource type="Script" uid="uid://dgmobsuwfxojq" path="res://scripts/score_label.gd" id="5_ng40l"]
+[ext_resource type="PackedScene" uid="uid://e1l10llc65cf" path="res://chars/muscle_mouse.tscn" id="6_04hp8"]
+
+[sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_gwceb"]
+texture = ExtResource("2_0fd8o")
+texture_region_size = Vector2i(32, 32)
+0:0/0 = 0
+0:0/0/texture_origin = Vector2i(0, -8)
+1:0/0 = 0
+1:0/0/texture_origin = Vector2i(0, -8)
+2:0/0 = 0
+2:0/0/texture_origin = Vector2i(0, -8)
+2:0/0/custom_data_3 = true
+3:0/0 = 0
+3:0/0/texture_origin = Vector2i(0, -8)
+
+[sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_btoec"]
+resource_name = "blocks"
+texture = ExtResource("3_dmnu2")
+texture_region_size = Vector2i(32, 32)
+0:0/0 = 0
+0:0/0/texture_origin = Vector2i(0, -8)
+0:0/0/physics_layer_0/polygon_0/points = PackedVector2Array(0, 24, 16, 16, 16, 8, 0, 0, -16, 8, -16, 16)
+0:0/0/custom_data_1 = -1
+1:0/0 = 0
+1:0/0/texture_origin = Vector2i(0, -8)
+1:0/0/physics_layer_0/polygon_0/points = PackedVector2Array(0, 24, 16, 16, 16, 8, 0, 0, -16, 8, -16, 16)
+1:0/0/custom_data_1 = -1
+2:0/0 = 0
+2:0/0/texture_origin = Vector2i(0, -8)
+2:0/0/physics_layer_0/polygon_0/points = PackedVector2Array(0, 0, -16, 8, -16, 16, 0, 24, 16, 16, 16, 8)
+2:0/0/custom_data_0 = true
+2:0/0/custom_data_2 = true
+3:0/next_alternative_id = 2
+3:0/0 = 0
+3:0/0/texture_origin = Vector2i(0, -8)
+3:0/0/physics_layer_0/polygon_0/points = PackedVector2Array(0, 24, -16, 16, -16, 8, 0, 0, 16, 8, 16, 16)
+3:0/0/custom_data_0 = true
+4:0/0 = 0
+4:0/0/texture_origin = Vector2i(0, -8)
+4:0/0/physics_layer_0/polygon_0/points = PackedVector2Array(0, 24, -16, 16, -16, 8, 0, 0, 16, 8, 16, 16)
+4:0/0/custom_data_0 = true
+4:0/0/custom_data_1 = 1
+5:0/0 = 0
+5:0/0/texture_origin = Vector2i(0, -8)
+5:0/0/physics_layer_0/polygon_0/points = PackedVector2Array(0, 24, 16, 16, 16, 8, 0, 0, -16, 8, -16, 16)
+5:0/0/custom_data_0 = true
+5:0/0/custom_data_1 = 2
+6:0/0 = 0
+6:0/0/texture_origin = Vector2i(0, -8)
+6:0/0/physics_layer_0/polygon_0/points = PackedVector2Array(0, 24, 16, 16, 16, 8, 0, 0, -16, 8, -16, 16)
+6:0/0/custom_data_0 = true
+6:0/0/custom_data_1 = 3
+
+[sub_resource type="TileSet" id="TileSet_gwceb"]
+tile_shape = 1
+tile_layout = 5
+tile_offset_axis = 1
+tile_size = Vector2i(32, 16)
+physics_layer_0/collision_layer = 1
+physics_layer_0/collision_mask = 2
+custom_data_layer_0/name = "eatable"
+custom_data_layer_0/type = 1
+custom_data_layer_1/name = "eat_state"
+custom_data_layer_1/type = 2
+custom_data_layer_2/name = "molded"
+custom_data_layer_2/type = 1
+custom_data_layer_3/name = "warp_cheese"
+custom_data_layer_3/type = 1
+sources/3 = SubResource("TileSetAtlasSource_btoec")
+sources/0 = SubResource("TileSetAtlasSource_gwceb")
+
+[sub_resource type="SystemFont" id="SystemFont_0xm2m"]
+font_names = PackedStringArray("Noto Sans")
+subpixel_positioning = 0
+
+[sub_resource type="Theme" id="Theme_l53as"]
+default_font = SubResource("SystemFont_0xm2m")
+default_font_size = 22
+
+[node name="level" type="Node2D" node_paths=PackedStringArray("tile_map_layer_walls")]
+y_sort_enabled = true
+script = ExtResource("1_hokjj")
+tile_map_layer_walls = NodePath("walls")
+warp_cheese_location = Vector2(16, -20)
+
+[node name="floor" type="TileMapLayer" parent="."]
+y_sort_enabled = true
+use_parent_material = true
+tile_map_data = PackedByteArray("AAD6//v/AwABAAAAAAD6//z/AwABAAAAAAD6//3/AwABAAAAAAD7//v/AwABAAAAAAD7//z/AwABAAAAAAD7//3/AwABAAAAAAD8//v/AwABAAAAAAD8//z/AwABAAAAAAD8//3/AwABAAAAAAD9//v/AwABAAAAAAD9//z/AwABAAAAAAD9//3/AwABAAAAAAD9//7/AwABAAAAAAD9////AwABAAAAAAD9/wAAAwABAAAAAAD9/wEAAwABAAAAAAD9/wIAAwABAAAAAAD+//7/AwABAAAAAAD+////AwABAAAAAAD+/wAAAwABAAAAAAD+/wEAAwABAAAAAAD+/wIAAwABAAAAAAD///7/AwABAAAAAAD/////AwABAAAAAAD//wAAAwABAAAAAAD//wEAAwABAAAAAAD//wIAAwABAAAAAAAAAP7/AwABAAAAAAAAAP//AwABAAAAAAAAAAAAAwABAAAAAAAAAAEAAwABAAAAAAAAAAIAAwABAAAAAAABAP7/AwABAAAAAAABAP//AwABAAAAAAABAAAAAwABAAAAAAABAAEAAwABAAAAAAABAAIAAwABAAAAAAACAP7/AwABAAAAAAACAP//AwABAAAAAAACAAAAAwABAAAAAAACAAEAAwABAAAAAAACAAIAAwABAAAAAAADAP7/AwABAAAAAAADAP//AwABAAAAAAADAAAAAwABAAAAAAADAAEAAwABAAAAAAADAAIAAwABAAAAAAAEAP7/AwABAAAAAAAEAP//AwABAAAAAAAEAAAAAwABAAAAAAAEAAEAAwABAAAAAAAEAAIAAwABAAAAAAD+//z/AwABAAAAAAD+//3/AwABAAAAAAD///z/AwABAAAAAAD///3/AwABAAAAAAAAAPz/AwABAAAAAAAAAP3/AwABAAAAAAABAPz/AwABAAAAAAABAP3/AwABAAAAAAACAPz/AwABAAAAAAACAP3/AwABAAAAAAD5//z/AwABAAAAAAD5//3/AwABAAAAAAD5//7/AwABAAAAAAD5////AwABAAAAAAD5/wAAAwABAAAAAAD6//7/AwABAAAAAAD6////AwABAAAAAAD6/wAAAwABAAAAAAD7//7/AwABAAAAAAD7////AwABAAAAAAD7/wAAAwABAAAAAAD8//7/AwABAAAAAAD8////AwABAAAAAAD8/wAAAwABAAAAAAACAAMAAwABAAAAAAACAAQAAwABAAAAAAACAAUAAwABAAAAAAACAAYAAwABAAAAAAADAAMAAwABAAAAAAADAAQAAwABAAAAAAADAAUAAwABAAAAAAADAAYAAwABAAAAAAAEAAMAAwABAAAAAAAEAAQAAwABAAAAAAAEAAUAAwABAAAAAAAEAAYAAwABAAAAAAAFAAEAAwABAAAAAAAFAAIAAwABAAAAAAAFAAMAAwABAAAAAAAFAAQAAwABAAAAAAAFAAUAAwABAAAAAAAFAAYAAwABAAAAAAAGAAEAAwABAAAAAAAGAAIAAwABAAAAAAAGAAMAAwABAAAAAAAGAAQAAwABAAAAAAAGAAUAAwABAAAAAAAGAAYAAwABAAAAAAAHAAEAAwABAAAAAAAHAAIAAwABAAAAAAAHAAMAAwABAAAAAAAHAAQAAwABAAAAAAAHAAUAAwABAAAAAAAHAAYAAwABAAAAAAAIAAEAAwABAAAAAAAIAAIAAwABAAAAAAAIAAMAAwABAAAAAAAIAAQAAwABAAAAAAAIAAUAAwABAAAAAAAIAAYAAwABAAAAAAAJAAEAAwABAAAAAAAJAAIAAwABAAAAAAAJAAMAAwABAAAAAAAJAAQAAwABAAAAAAAJAAUAAwABAAAAAAAJAAYAAwABAAAAAAAKAAEAAwABAAAAAAAKAAIAAwABAAAAAAAKAAMAAwABAAAAAAAKAAQAAwABAAAAAAAKAAUAAwABAAAAAAAKAAYAAwABAAAAAAALAAEAAwABAAAAAAALAAIAAwABAAAAAAALAAMAAwABAAAAAAALAAQAAwABAAAAAAALAAUAAwABAAAAAAALAAYAAwABAAAAAAADAP3/AwABAAAAAAAEAP3/AwABAAAAAAAFAP3/AwABAAAAAAAFAP7/AwABAAAAAAAFAP//AwABAAAAAAAFAAAAAwABAAAAAAD6//j/AwABAAAAAAD6//n/AwABAAAAAAD6//r/AwABAAAAAAD7//j/AwABAAAAAAD7//n/AwABAAAAAAD7//r/AwABAAAAAAD8//j/AwABAAAAAAD8//n/AwABAAAAAAD8//r/AwABAAAAAAD0//z/AwABAAAAAAD0//3/AwABAAAAAAD0//7/AwABAAAAAAD0////AwABAAAAAAD1//z/AwABAAAAAAD1//3/AwABAAAAAAD1//7/AwABAAAAAAD1////AwABAAAAAAD2//z/AwABAAAAAAD2//3/AwABAAAAAAD2//7/AwABAAAAAAD2////AwABAAAAAAD3//z/AwABAAAAAAD3//3/AwABAAAAAAD3//7/AwABAAAAAAD3////AwABAAAAAAD4//z/AwABAAAAAAD4//3/AwABAAAAAAD4//7/AwABAAAAAAD4////AwABAAAAAAD9/wMAAwABAAAAAAD9/wQAAwABAAAAAAD9/wUAAwABAAAAAAD9/wYAAwABAAAAAAD+/wMAAwABAAAAAAD+/wQAAwABAAAAAAD+/wUAAwABAAAAAAD+/wYAAwABAAAAAAD//wMAAwABAAAAAAD//wQAAwABAAAAAAD//wUAAwABAAAAAAD//wYAAwABAAAAAAABAPn/AwABAAAAAAABAPr/AwABAAAAAAABAPv/AwABAAAAAAACAPn/AwABAAAAAAACAPr/AwABAAAAAAACAPv/AwABAAAAAAADAPn/AwABAAAAAAADAPr/AwABAAAAAAADAPv/AwABAAAAAAAEAPn/AwABAAAAAAAEAPr/AwABAAAAAAAEAPv/AwABAAAAAAA=")
+tile_set = SubResource("TileSet_gwceb")
+collision_enabled = false
+
+[node name="walls" type="TileMapLayer" parent="." groups=["tiles"]]
+z_index = 1
+z_as_relative = false
+y_sort_enabled = true
+use_parent_material = true
+rotation = -0.001711971
+tile_map_data = PackedByteArray("AAABAAUAAwAAAAAAAAACAAUAAwAAAAAAAAADAAUAAwAAAAAAAAAEAAUAAwAAAAAAAAAFAAUAAwAAAAAAAAAGAAUAAwAAAAAAAAAHAAUAAwAAAAAAAAAIAAUAAwAAAAAAAAAJAAUAAwAAAAAAAAAKAAUAAwAAAAAAAAAKAAQAAwAAAAAAAAAKAAMAAwAAAAAAAAAKAAIAAwAAAAAAAAAKAAEAAwAAAAAAAAAKAAAAAwAAAAAAAAAJAAAAAwAAAAAAAAAIAAAAAwAAAAAAAAAHAAAAAwAAAAAAAAAGAAAAAwAAAAAAAAAFAAAAAwAAAAAAAAAFAP//AwAAAAAAAAAFAP7/AwAAAAAAAAAFAP3/AwAAAAAAAAACAPv/AwAAAAAAAAADAPv/AwAAAAAAAAAEAPv/AwAAAAAAAAAFAPz/AwAAAAAAAAAEAPz/AwAAAAAAAAADAPr/AwAAAAAAAAADAPn/AwAAAAAAAAADAPj/AwAAAAAAAAAAAPj/AwAAAAAAAAABAPj/AwAAAAAAAAACAPj/AwAAAAAAAAAAAPn/AwAAAAAAAAAAAPr/AwAAAAAAAAAAAPv/AwAAAAAAAAD+/wUAAwAAAAAAAAD9/wUAAwAAAAAAAAD8/wUAAwAAAAAAAAD8/wQAAwAAAAAAAAD8/wMAAwAAAAAAAAD8/wIAAwAAAAAAAAD8/wEAAwAAAAAAAAD+/wQAAwAAAAAAAAD+/wMAAwAAAAAAAAD+/wIAAwAAAAAAAAD//wEAAwAAAAAAAAAAAAEAAwAAAAAAAAABAAIAAwAAAAAAAAABAAMAAwAAAAAAAAABAAQAAwAAAAAAAADz//7/AwAAAAAAAAD0//7/AwAAAAAAAAD1//7/AwAAAAAAAAD2//7/AwAAAAAAAAD3//7/AwAAAAAAAAD4////AwAAAAAAAAD5////AwAAAAAAAAD6////AwAAAAAAAAD7/wAAAwAAAAAAAADz//v/AwAAAAAAAADz//z/AwAAAAAAAADz//3/AwAAAAAAAAD0//v/AwAAAAAAAAD1//v/AwAAAAAAAAD2//v/AwAAAAAAAAD3//v/AwAAAAAAAAD4//v/AwAAAAAAAAD5//r/AwAAAAAAAAD5//n/AwAAAAAAAAD5//j/AwAAAAAAAAD5//f/AwAAAAAAAAD6//f/AwAAAAAAAAD7//f/AwAAAAAAAAD7//j/AwAAAAAAAAD7//n/AwAAAAAAAAD8//r/AwAAAAAAAAD9//v/AwAAAAAAAAD+//v/AwAAAAAAAAD///v/AwAAAAAAAAD9//z/AwACAAAAAAD+//z/AwACAAAAAAD///z/AwACAAAAAAAAAPz/AwACAAAAAAAIAAEAAwACAAAAAAAIAAIAAwACAAAAAAAJAAMAAwACAAAAAAAJAAQAAwACAAAAAAAJAAEAAwACAAAAAAAJAAIAAwACAAAAAAD9/wQAAwADAAAAAAD9/wMAAwADAAAAAAD9/wIAAwADAAAAAAABAPn/AwADAAAAAAACAPn/AwADAAAAAAACAPr/AwADAAAAAAABAPr/AwADAAAAAAD3//z/AwAGAAAAAAD3//3/AwAGAAAAAAD6//j/AwADAAAAAAD6//n/AwADAAAAAAD6//r/AwADAAAAAAAAAAAAAwADAAAAAAAAAP//AwADAAAAAAAAAP7/AwADAAAAAAAAAP3/AwADAAAAAAACAAQAAwADAAAAAAADAAQAAwADAAAAAAAEAAQAAwADAAAAAAAFAAQAAwADAAAAAAACAAMAAwADAAAAAAADAAMAAwADAAAAAAACAAIAAwADAAAAAAA=")
+tile_set = SubResource("TileSet_gwceb")
+y_sort_origin = 1
+
+[node name="mouse" parent="." node_paths=PackedStringArray("tile_map_layer_walls") instance=ExtResource("4_sc6c1")]
+z_index = 1
+y_sort_enabled = true
+position = Vector2(16, -22)
+tile_map_layer_walls = NodePath("../walls")
+
+[node name="camera" type="Camera2D" parent="mouse"]
+z_index = 5
+zoom = Vector2(4, 4)
+
+[node name="UserInterface" type="Control" parent="mouse"]
+z_index = 100
+layout_mode = 3
+anchors_preset = 0
+offset_left = 92.0
+offset_top = -78.0
+offset_right = 92.0
+offset_bottom = -78.0
+scale = Vector2(0.01, 0.01)
+theme = SubResource("Theme_l53as")
+metadata/_edit_use_anchors_ = true
+
+[node name="ScoreLabel" type="Label" parent="mouse/UserInterface"]
+layout_mode = 0
+offset_right = 40.0
+offset_bottom = 23.0
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+theme_override_colors/font_outline_color = Color(1, 1, 1, 1)
+theme_override_constants/outline_size = 200
+theme_override_font_sizes/font_size = 1000
+text = "Score: 0"
+script = ExtResource("5_ng40l")
+metadata/_edit_use_anchors_ = true
+
+[node name="muscleMouse" parent="." instance=ExtResource("6_04hp8")]
+position = Vector2(-109, -112)
+
+[node name="muscleMouse2" parent="." instance=ExtResource("6_04hp8")]
+position = Vector2(99, 10)

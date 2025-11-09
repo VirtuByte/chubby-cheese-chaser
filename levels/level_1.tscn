@@ -88,6 +88,7 @@ default_font_size = 22
 y_sort_enabled = true
 script = ExtResource("1_kx6l7")
 tile_map_layer_walls = NodePath("walls")
+warp_cheese_location = Vector2(0, -47)
 
 [node name="floor" type="TileMapLayer" parent="."]
 y_sort_enabled = true
